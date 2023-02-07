@@ -24,6 +24,8 @@ export default class Introduction {
         const token = syntheticToken.document??syntheticToken;
         if(token){
             const actor = game.actors.get(syntheticActor.id);
+            actor.setFlag('introduce-me', 'introduced', true);
+
             if(!preview && game.user.isGM){
                 const usePermission = await game.settings.get('introduce-me', 'use-introduce-permission');
                 const permissionUpdate = usePermission ? {
@@ -143,6 +145,8 @@ export default class Introduction {
                 await game.socket.emit(`module.introduce-me`, { type: RequestType.toggleAudio });
                 await this.toggleAudio(node, sound, colors.audio);
             });
+
+
         }
     }
 
